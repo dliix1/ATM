@@ -29,6 +29,7 @@ public class Test {
 			System.out.println(" -- ENTER YOUR NAME -- ");
 			System.out.println("--------------------------------------");
 			String name = input.nextLine();
+			
 
 			System.out.println("--------------------------------------");
 			System.out.println(" -- ENTER YOUR LAST NAME --");
@@ -54,7 +55,7 @@ public class Test {
 			System.out.println(" -- ENTER THE AMOUNT ON THE ACCOUNT --");
 			System.out.println("--------------------------------------");
 			double amount = Double();
-
+			
 			newAccount = new Account(name, lastName, telephoneNumber, address,
 					amount);
 
@@ -107,13 +108,13 @@ public class Test {
 			System.out.println("--------------------------------------");
 			double sendingAmount = Double();
 
-			while (amount <= 0) {
+			while (sendingAmount <= 0) {
 				System.out.println("Please enter a valid amount.");
-				amount = Double();
+				sendingAmount = Double();
 
 			}
 
-			Account.transferMoney(sourceAccount, targetAccount, sendingAmount);
+			Account.moneyTransfer(sourceAccount, targetAccount, sendingAmount);
 
 			System.out.println("--------------------------------------");
 			System.out.println(" -- TRANSFER SUCCESSFULLY DONE -- ");
@@ -154,6 +155,7 @@ public class Test {
 				continue;
 			}
 		return number;
+		
 	}
 
 	public static double Double() {

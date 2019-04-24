@@ -6,17 +6,26 @@ public class Account extends User {
 
 	private int accountNumber;
 	private String ownerName;
-	private double accountAmount;
-	private ArrayList<Account> accountList2 = new ArrayList<>();
-
-	Account(String name, String lastName, int telephoneNumber, String address, double amount) {
-
+	private double amount;
+	private int lastAmount;
+	
+	public int getLastAmount() {
+		return lastAmount;
 	}
 
-	public Account(int accountNumber, String ownerName, double accountAmount) {
+	public void setLastAmount(int lastAmount) {
+		this.lastAmount = lastAmount;
+	}
+
+
+	public static ArrayList<Account> accountList2 = new ArrayList<>();
+	
+
+	public Account(String name, String lastName, int accountNumber, String ownerName, double amount) {
+		super(name, lastName);
 		this.accountNumber = accountNumber;
 		this.ownerName = ownerName;
-		this.accountAmount = accountAmount;
+		this.amount = amount;
 	}
 
 	public int getAccountNumber() {
@@ -35,22 +44,23 @@ public class Account extends User {
 		this.ownerName = ownerName;
 	}
 
-	public double getAccountAmount() {
-		return accountAmount;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setAccountAmount(double accountAmount) {
-		this.accountAmount = accountAmount;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
 	public String toString() {
 		return "User{" + "Account number = '" + accountNumber + '\''
 				+ ", Owner Name = '" + ownerName + '\''
-				+ ", Amount on the account = '" + accountAmount + '\'' + '}';
+				+ ", Amount on the account = '" + amount + '\'' + '}';
 
 	}
 
-	public static void accountInfo(String name, String lastName, int telephoneNumber, String address, double amount, int accountNumber) {
+	public static void accountInfo(String name, String lastName,
+			int telephoneNumber, String address, double amount, int accountNumber) {
 		System.out.println("---------- ACCOUNT INFO ----------");
 		System.out.println("-- ACCOUNT NUMBER:  " + accountNumber);
 		System.out.println("-- OWNER'S NAME:    " + name);
@@ -59,8 +69,9 @@ public class Account extends User {
 		System.out.println("-- OWNER'S NUMBER:  " + telephoneNumber);
 		System.out.println("-- ACCOUNT AMOUNT:  " + amount);
 		System.out.println("----------------------------------");
-	
+
 	}
+
 	public boolean check(int accountNumber, ArrayList<Account> accountList) {
 		for (int i = 0; i < accountList.size(); i++) {
 			if (accountList.get(i).getAccountNumber() == accountNumber) {
@@ -71,13 +82,14 @@ public class Account extends User {
 
 	}
 
-	public void moneyTransfer(int sourceAccount, int targetAccount, double amount) {
+	public static void moneyTransfer(int sourceAccount, int targetAccount,
+			double amount) {
 		for (int i = 0; i < accountList2.size(); i++) {
-			if (accountList2.get(i).getAccountAmount() == sourceAccount) {
-				if (accountList2.get(i).getAccountAmount() >= 0
-						&& (accountList2.get(i).getAccountAmount() - amount) >= 0) {
-					accountList2.get(i).getAccountAmount(
-							accountList2.get(i).getAccountAmount() - amount);
+			if (accountList2.get(i).getAmount() == sourceAccount) {
+				if (accountList2.get(i).getAmount() >= 0
+						&& (accountList2.get(i).getAmount() - amount) >= 0) {
+					accountList2.get(i).setAmount(
+							accountList2.get(i).getAmount() - amount);
 				} else {
 					System.out.println("Try again!");
 					return;
@@ -88,27 +100,66 @@ public class Account extends User {
 		for (int j = 0; j < accountList2.size(); j++) {
 			if (accountList2.get(j).getAccountNumber() == targetAccount) {
 
-				accountList2.get(j).setAccountAmount(
-						accountList2.get(j).getAccountAmount() + amount);
+				accountList2.get(j).setAmount(
+						accountList2.get(j).getAmount() + amount);
 			}
 		}
 	}
 
-	private void getAccountAmount(double d) {
+	public static boolean transferCheck(int sourceAccount, int targetAccount,
+			double amount) {
 
+		boolean source = false;
+		boolean target = false;
+		boolean sending = false;
+
+		for (int i = 0; i < accountList2.size(); i++) {
+
+			if (accountList2.get(i).accountNumber == sourceAccount) {
+
+				source = true;
+
+			}
+
+			if (accountList2.get(i).accountNumber == targetAccount) {
+
+				target = true;
+
+			}
+
+			if (accountList2.get(i).lastAmount >= amount) {
+
+				sending = true;
+
+			}
+
+		}
+
+		if (!source) {
+			System.out
+					.println("Please enter the right number of source account!");
+		}
+
+		if (!target) {
+			System.out
+					.println("Please enter the right number of target account!");
+		}
+
+		if (!sending) {
+			System.out.println("Please enter the right amount of money!");
+
+		}
+
+		if (!source || !target || !sending) {
+			return false;
+
+		} else
+			return true;
 	}
+
 
 	public void setAccountList2(ArrayList<Account> accountList) {
-		
+
 	}
-
-	public static void transferMoney(int sourceAccount, int targetAccount,
-			double amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
 
 }
