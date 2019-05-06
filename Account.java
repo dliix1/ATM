@@ -21,6 +21,10 @@ public class Account extends User {
 	public static ArrayList<Account> accountList2 = new ArrayList<>();
 	
 
+	public static void setAccountList2(ArrayList<Account> accountList2) {
+		Account.accountList2 = accountList2;
+	}
+
 	public Account(String name, String lastName, int accountNumber, String ownerName, double amount) {
 		super(name, lastName);
 		this.accountNumber = accountNumber;
@@ -155,11 +159,6 @@ public class Account extends User {
 
 		} else
 			return true;
-	}
-
-
-	public void setAccountList2(ArrayList<Account> accountList) {
-
 	}
 
 }
